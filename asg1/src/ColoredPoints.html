@@ -1,0 +1,59 @@
+<body onload="main()">
+
+  <!-- Canvas and Image side-by-side -->
+  <div style="display: flex; align-items: flex-start; gap: 20px;">
+    <!-- Canvas -->
+    <canvas id="webgl" width="400" height="400">
+      Please use a browser that supports "canvas"
+    </canvas>
+
+    <!-- Rocket Image -->
+    <div>
+      <img src="rocketship.png" alt="Rocket Sketch" width="300">
+      <p style="text-align: center;">Reference Rocket Image</p>
+    </div>
+  </div>
+
+  <!-- Everything else stays below -->
+   <p>
+    Sridatta Grandhi
+   </p>
+   <p>
+    srgrandh@ucsc.edu
+   </p>
+  <p style="font-weight: bold;">
+    Awesomeness: When you click the "Draw My Scene" button, a 
+    rocket is rendered with animated, rotating stars in the background. 
+    The stars are custom shapes made entirely from triangles and rotate 
+    while the rocket is on-screen. The animation stops when the scene 
+    is cleared.
+  </p>
+
+  <p id="numdot">XXX</p>
+
+  <button type="button" id="green">Green</button>
+  <button type="button" id="red">Red</button>
+  <button type="button" id="clearButton">Clear</button>
+
+  <p>
+    <button type="button" id="pointButton">Point</button>
+    <button type="button" id="triButton">Triangle</button>
+    <button type="button" id="circleButton">Circle</button>
+  </p>
+
+  <p>Red <input type="range" min="0" max="100" value="100" class="slider" id="redSlide"></p>
+  <p>Green <input type="range" min="0" max="100" value="0" class="slider" id="greenSlide"></p>
+  <p>Blue <input type="range" min="0" max="100" value="0" class="slider" id="blueSlide"></p>
+  <p>Size <input type="range" min="5" max="40" value="0" class="slider" id="sizeSlide"></p>
+  <p>Segments <input type="range" min="3" max="100" value="10" class="slider" id="segmentSlide"></p>
+  <p><button type="button" id="drawSceneButton">Draw My Scene</button></p>
+
+  <!-- Scripts -->
+  <script src="../lib/webgl-utils.js"></script>
+  <script src="../lib/webgl-debug.js"></script>
+  <script src="../lib/cuon-utils.js"></script>
+  <script src="Triangle.js"></script>
+  <script src="Circle.js"></script>
+  <script src="Point.js"></script>
+  <script src="ColoredPoints.js"></script>
+</body>
