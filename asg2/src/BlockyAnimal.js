@@ -28,6 +28,10 @@ let g_legAngle = 0;
 let g_kneeAngle = 0;
 let g_pawAngle = 0;
 
+let g_bodyBounce = 0;
+let g_headTilt = 0;
+let g_pawBounce = 0;
+
 let g_animationActive = false;
 let g_time = 0;
 let g_pokeActive = false;
@@ -65,19 +69,30 @@ function addUIActions() {
 
   const canvas = gl.canvas;
   let dragging = false, lastX = 0, lastY = 0;
+  
   canvas.addEventListener('mousedown', e => {
     if (e.shiftKey) {
-      g_pokeActive = true;
-      g_pokeStartTime = g_time;
+      g_pokeActive = true;            // Start poke
+      g_pokeStartTime = g_time;        // (optional, if you still want pokeStartTime tracking)
     } else {
       dragging = true;
       lastX = e.clientX;
       lastY = e.clientY;
     }
   });
-  canvas.addEventListener('mouseup', () => dragging = false);
+
+  canvas.addEventListener('mouseup', e => {
+    dragging = false;
+    g_pokeActive = false;              // Stop poke
+  });
+
   canvas.addEventListener('mousemove', e => {
     if (!dragging) return;
+
+    if (!e.shiftKey && g_pokeActive) { // If user lets go of Shift while moving
+      g_pokeActive = false;
+    }
+
     g_mouseXAngle += (e.clientX - lastX) * 0.5;
     g_mouseYAngle += (e.clientY - lastY) * 0.5;
     lastX = e.clientX;
@@ -85,6 +100,7 @@ function addUIActions() {
     renderScene();
   });
 }
+
 
 // ── Animation ─────────────────────────────────────
 function updateAnimationAngles() {
@@ -97,18 +113,25 @@ function updateAnimationAngles() {
   g_pawAngle = 10 * Math.sin(t * 6);
 }
 
-
-
 function updatePokeAnimation() {
   if (!g_pokeActive) return;
+  
   let elapsed = g_time - g_pokeStartTime;
-  if (elapsed < 1.0) {
-    g_tailAngle = 30 * Math.sin(elapsed * 10);
+
+  if (elapsed < 5.0) {
+    g_tailAngle = 50 * Math.sin(elapsed * 15);  // Tail wags bigger and faster
+    g_bodyBounce = 0.05 * Math.sin(elapsed * 10); // Body slightly jumps
+    g_headTilt = 10 * Math.sin(elapsed * 8);    // Head tilts left and right
+    g_pawBounce = 0.05 * Math.sin(elapsed * 20);
   } else {
     g_pokeActive = false;
     g_tailAngle = 0;
+    g_bodyBounce = 0;
+    g_headTilt = 0;
+    g_pawBounce = 0;
   }
 }
+
 
 // ── Rendering ─────────────────────────────────────
 function renderScene() {

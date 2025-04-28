@@ -11,9 +11,10 @@ const Colors = {
   function renderDog() {
     // ───────── HEAD ─────────
     const headMat = new Matrix4()
-      .setIdentity()
-      .translate(0, 0.3, -0.1)
-      .scale(0.4, 0.4, 0.4);
+        .setIdentity()
+        .translate(0, 0.3, -0.1)
+        .rotate(g_headTilt, 0, 1, 0)   // head tilts on poke
+        .scale(0.4, 0.4, 0.4);
     gl.uniform4fv(u_Color, Colors.head);
     drawCube(gl, headMat, Colors.head);
   
@@ -26,9 +27,9 @@ const Colors = {
   
     // ───────── BODY ─────────
     const bodyMat = new Matrix4()
-      .setIdentity()
-      .translate(0, -0.1, 0.3)
-      .scale(0.5, 0.5, 1.0);
+        .setIdentity()
+        .translate(0, -0.1 + g_bodyBounce, 0.3)  // Add bounce effect
+        .scale(0.5, 0.5, 1.0);
     gl.uniform4fv(u_Color, Colors.body);
     drawCube(gl, bodyMat, Colors.body);
   
@@ -75,10 +76,11 @@ const Colors = {
       }
   
       function drawPaw(offsetX, offsetZ) {
-          const paw = new Matrix4(bodyMat)
-            .translate(offsetX, -0.7, offsetZ) // 🠔 Make sure this height matches end of legs
-            .rotate(g_pawAngle, 1, 0, 0)
-            .scale(0.15, 0.05, 0.2);           // small, flat paw
+        const paw = new Matrix4(bodyMat)
+                .translate(offsetX, -0.7 + g_pawBounce, offsetZ)  // Add paw bounce vertically
+                .rotate(g_pawAngle, 1, 0, 0)
+                .scale(0.15, 0.05, 0.2);
+              // small, flat paw
           gl.uniform4fv(u_Color, Colors.leg);
           drawCube(gl, paw, Colors.leg);
       }
