@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Draw quad with texture</title>
+    <style>
+      body {
+        margin: 0;
+        overflow: hidden;
+        background-color: #333;
+        font-family: Arial, sans-serif;
+      }
+      #webgl {
+        display: block;
+        margin: 20px auto;
+        border: 1px solid #666;
+      }
+      /* MODIFIED: Container for overlay text */
+      #uiContainer {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        background-color: rgba(0,0,0,0.5);
+        padding: 8px;
+        border-radius: 5px;
+        color: white;
+        font-size: 14px;
+      }
+      #info, #fpsDisplay { /* Style them within the container */
+        margin-bottom: 5px; 
+      }
+      #info:last-child, #fpsDisplay:last-child {
+        margin-bottom: 0;
+      }
+      .error {
+        color: #ff6666;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+
+  <body onload="main()">
+    <div id="uiContainer">
+        <div id="info">
+          Use WASD to move, QE to pan left/right. Mouse for L/R look. F to add, R to remove blocks be 2.5 blocks away. Enjoy and escape the maze!
+        </div>
+        <div id="fpsDisplay">FPS: --</div> 
+    </div>
+
+    <canvas id="webgl" width="800" height="600">
+      Please use a browser that supports "canvas"
+    </canvas>
+    <div id="error-message"></div>
+
+    <script src="../lib/cuon-matrix-cse160.js"></script>
+    <script src="../lib/webgl-utils.js"></script>
+    <script src="../lib/webgl-debug.js"></script>
+    <script src="../lib/cuon-utils.js"></script>
+
+    <script src="Camera.js"></script>
+    <script src="Cube.js"></script>
+    <script src="TexturedQuad.js"></script> <script>
+      // Error handling for script loading (remains the same)
+      window.addEventListener('error', function(e) {
+        if (e.filename) {
+          const errorMsg = `Error in ${e.filename.split('/').pop()}: ${e.message}`;
+          console.error(errorMsg);
+          const errorDiv = document.getElementById('error-message');
+          if (errorDiv) { // Check if error-message div exists
+            errorDiv.innerHTML = `<div class="error">${errorMsg}</div>`;
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
