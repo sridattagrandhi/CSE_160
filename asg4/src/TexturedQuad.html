@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>WebGL Phong Lighting</title>
+    <style>
+      body {
+        margin: 0;
+        overflow: hidden;
+        background-color: #333;
+        font-family: Arial, sans-serif;
+        color: white;
+      }
+      #webgl {
+        display: block;
+        margin: 20px auto;
+        border: 1px solid #666;
+      }
+      #uiContainer {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        background-color: rgba(0,0,0,0.7);
+        padding: 10px;
+        border-radius: 5px;
+        font-size: 12px;
+        max-width: 250px;
+      }
+      #uiContainer div, #uiContainer button, #uiContainer label, #uiContainer input {
+        margin-bottom: 5px;
+        display: block;
+      }
+      #uiContainer input[type="range"] {
+        width: 100%;
+      }
+      #info, #fpsDisplay {
+        margin-bottom: 8px; 
+      }
+      .error {
+        color: #ff6666;
+        font-weight: bold;
+        background-color: #552222;
+        padding: 5px;
+        border-radius: 3px;
+      }
+      button {
+        padding: 5px 8px;
+        background-color: #555;
+        color: white;
+        border: 1px solid #777;
+        border-radius: 3px;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #666;
+      }
+    </style>
+  </head>
+
+  <body onload="main()">
+    <div id="uiContainer">
+        <div id="info">
+          Use WASD to move, QE to pan. Mouse for look. F to add, R to remove blocks.
+        </div>
+        <div id="fpsDisplay">FPS: --</div>
+        
+        <button id="toggleLightingBtn">Toggle All Lighting (On)</button>
+        <button id="toggleNormalVizBtn">Toggle Normal Viz (Off)</button>
+        <hr>
+        <div>Point Light:</div>
+        <button id="togglePointLightBtn">Point Light (On)</button>
+        <label for="pointLightXSlider">Light X:</label>
+        <input type="range" id="pointLightXSlider" min="-20" max="20" value="0" step="0.5">
+        <label for="pointLightYSlider">Light Y:</label>
+        <input type="range" id="pointLightYSlider" min="0.5" max="10" value="3" step="0.1">
+        <label for="pointLightZSlider">Light Z:</label>
+        <input type="range" id="pointLightZSlider" min="-20" max="20" value="0" step="0.5">
+        <label for="pointLightRSlider">Light Red:</label>
+        <input type="range" id="pointLightRSlider" min="0" max="1" value="1" step="0.05">
+        <label for="pointLightGSlider">Light Green:</label>
+        <input type="range" id="pointLightGSlider" min="0" max="1" value="1" step="0.05">
+        <label for="pointLightBSlider">Light Blue:</label>
+        <input type="range" id="pointLightBSlider" min="0" max="1" value="1" step="0.05">
+        <hr>
+        <div>Spot Light:</div>
+        <button id="toggleSpotLightBtn">Spot Light (On)</button>
+        </div>
+
+    <canvas id="webgl" width="800" height="600">
+      Please use a browser that supports "canvas"
+    </canvas>
+    <div id="error-message"></div>
+
+    <script src="../lib/cuon-matrix-cse160.js"></script>
+    <script src="../lib/webgl-utils.js"></script>
+    <script src="../lib/webgl-debug.js"></script>
+    <script src="../lib/cuon-utils.js"></script>
+
+    <script src="Camera.js"></script>
+    <script src="Cube.js"></script>
+    <script src="Sphere.js"></script> <script src="TexturedQuad.js"></script> 
+    <script>
+      window.addEventListener('error', function(e) {
+        if (e.filename) {
+          const errorMsg = `Error in ${e.filename.split('/').pop()}: ${e.message} (line ${e.lineno})`;
+          console.error(errorMsg, e.error); // Log the actual error object
+          const errorDiv = document.getElementById('error-message');
+          if (errorDiv) {
+            errorDiv.innerHTML = `<div class="error">${errorMsg}</div>`;
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
