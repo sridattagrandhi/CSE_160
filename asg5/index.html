@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Three.js Mini City</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background: #000;
+            font-family: Arial, sans-serif;
+        }
+        
+        canvas {
+            display: block;
+        }
+        
+        #ui {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: white;
+            background: rgba(0,0,0,0.7);
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        
+        #controls {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            color: white;
+            background: rgba(0,0,0,0.7);
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 12px;
+        }
+        
+        #wow-feature {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: #ffff00;
+            background: rgba(0,0,0,0.8);
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            max-width: 200px;
+        }
+    </style>
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.128.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.128.0/examples/jsm/"
+            }
+        }
+    </script>
+</head>
+<body>
+    <div id="ui">
+        <h3>Three.js Mini City</h3>
+        <p>Objects in Scene: <span id="objectCount">0</span></p>
+        <p>Lights in Scene: <span id="lightCount">0</span></p>
+        <p>Rain: <span id="rainStatus">Off</span> (Press P to toggle)</p>
+        <p>Streetlights: <span id="streetLightStatus">On</span> (Press L to toggle)</p>
+        <p>Custom loaded .glb building</p>
+    </div>
+
+    <div id="controls">
+        <strong>Controls:</strong><br>
+        Left Click + Drag: Rotate<br>
+        Mouse Wheel: Zoom<br>
+        R: Reset Camera<br>
+        P: Toggle Rain<br>
+        L: Toggle Street Lights
+    </div>
+
+    <div id="wow-feature">
+        <strong>🌟 WOW FEATURES:</strong><br>
+        • Particle fountain<br>
+        • Toggleable street lights<br>
+        • Toggleable weather effects (rain)<br>
+        • One building type is animated (rotation)
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="js/main.js" type="module" defer></script>
+</body>
+</html>
